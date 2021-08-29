@@ -1,37 +1,37 @@
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+
+monthly_challenges = {
+    "january": "ICE BUCKET CHALLENGE",
+    "february": "FOOD CHALLENGE",
+    "march": "CINNAMON  CHALLENGE",
+    "april": "RAW ONION CHALLENGE",
+    "june": "THE WASABI CHALLENGE",
+    "july": "HOT PEPPER CHALLENGE",
+    "august": "WARHEAD CHALLENGE",
+    "september": "LEMON CHALLENGE",
+    "october": "LIME CHALLENGE",
+    "november": "CHUBBY BUNNY CHALLENGE",
+    "december": "PIZZA CHALLENGE"
+}
+
 
 # Create your views here.
 
 
-def monthly_challenges_by_number(request, month):
-    return HttpResponse(month)
+def monthly_challenge_by_number(request, month):
+    months = list(monthly_challenges.keys())
+
+    if month > len(months):
+        return HttpResponseNotFound("invalid month!")
+
+    redirect_month = months[month-1]
+    return HttpResponseRedirect('/challenges/'+redirect_month)
 
 
-def monthly_challenges(request, month):
-    challenge_text = None
-    if month == 'january':
-        challenge_text = ' ICE BUCKET CHALLENGE'
-    elif month == 'february':
-        challenge_text = ' FOOD CHALLENGE'
-    elif month == 'march':
-        challenge_text = ' CINNAMON  CHALLENGE'
-    elif month == 'april':
-        challenge_text = ' RAW ONION CHALLENGE'
-    elif month == 'june':
-        challenge_text = ' THE WASABI CHALLENGE'
-    elif month == 'july':
-        challenge_text = ' HOT PEPPER CHALLENGE'
-    elif month == 'august':
-        challenge_text = ' WARHEAD CHALLENGE'
-    elif month == 'september':
-        challenge_text = ' LEMON CHALLENGE'
-    elif month == 'october':
-        challenge_text = ' LIME CHALLENGE'
-    elif month == 'november':
-        challenge_text = ' CHUBBY BUNNY CHALLENGE'
-    elif month == 'december':
-        challenge_text = ' PIZZA CHALLENGE'
-    else:
+def monthly_challenge(request, month):
+    try:
+        challenge_text = monthly_challenges[month]
+        return HttpResponse(challenge_text)
+    except:
         return HttpResponseNotFound('This Month is not supported!!!!!')
-    return HttpResponse(challenge_text)
