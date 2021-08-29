@@ -25,14 +25,18 @@ def index(request):
     list_items = ""
     months = list(monthly_challenges.keys())
 
-    for month in months:
-        capitalized__month = month.capitalize()
-        month_path = reverse("month-challenge", args=[month])
-        list_items += f"<li><a href=\"{month_path}\">{capitalized__month}</a></li>"
+    return render(request, "challenges/challenge.html", {
+        "months": months,
+    })
 
-    response_data = f"<ul>{list_items}</ul>"
+    # for month in months:
+    #     capitalized__month = month.capitalize()
+    #     month_path = reverse("month-challenge", args=[month])
+    #     list_items += f"<li><a href=\"{month_path}\">{capitalized__month}</a></li>"
 
-    return HttpResponse(response_data)
+    # response_data = f"<ul>{list_items}</ul>"
+
+    # return HttpResponse(response_data)
 
 
 def monthly_challenge_by_number(request, month):
