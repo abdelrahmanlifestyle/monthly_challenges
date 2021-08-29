@@ -14,7 +14,7 @@ monthly_challenges = {
     "september": "LEMON CHALLENGE",
     "october": "LIME CHALLENGE",
     "november": "CHUBBY BUNNY CHALLENGE",
-    "december": "PIZZA CHALLENGE"
+    "december": None
 }
 
 
