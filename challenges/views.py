@@ -1,7 +1,8 @@
-from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.http import Http404, HttpResponseNotFound, HttpResponseRedirect
 from django.urls import reverse
-# from django.template.loader import render_to_string
 from django.shortcuts import render
+from django.template.loader import render_to_string
+
 
 monthly_challenges = {
     "january": "ICE BUCKET CHALLENGE",
@@ -63,4 +64,6 @@ def monthly_challenge(request, month):
             "text": challenge_text
         })
     except:
-        return HttpResponseNotFound('<h1>This Month is not supported!!!!!</h1>')
+        # response_data = render_to_string('404.html')
+        # return HttpResponseNotFound(response_data)
+        raise Http404()
